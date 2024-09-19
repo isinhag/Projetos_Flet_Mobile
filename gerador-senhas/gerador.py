@@ -51,7 +51,7 @@ def main(page: ft.Page):
 
     # Elemento de título da Ui, com estilo e espaçamento no topo
     titulo = ft.Container(
-        content=ft.Text("Gerador de Senhas" ,size=28, weight="bold"), # Define otexto do título com tamanho grande e emnegrito
+        content=ft.Text("Gerador de Senhas por Isabela Gomes" ,size=28, weight="bold"), # Define otexto do título com tamanho grande e emnegrito
         padding=ft.padding.only(top=50) # Definepadding (espaçamento) apenas na partesuperior
     )
 

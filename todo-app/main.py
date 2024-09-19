@@ -47,7 +47,7 @@ class AppToDo:
         def salvar_usuario(e):
             self.usuario = campo_usuario.value if campo_usuario.value else "Usuário"
             self.page.controls.clear()
-            self.main
+            self.main()
 
         campo_usuario = ft.TextField(
             label="Digite seu nome",
@@ -55,7 +55,7 @@ class AppToDo:
             focused_border_color=self.cor['secundaria'],
             text_style=ft.TextStyle(color=self.cor['texto']),
             bgcolor=self.cor['item_fundo'],
-            border_radius=8
+            border_radius=8,
         )
 
         botao_confirmar = ft.ElevatedButton(
@@ -77,7 +77,7 @@ class AppToDo:
                     botao_confirmar
                 ], alignment=ft.MainAxisAlignment.CENTER, spacing=20),
                 padding=20,
-                bgcolor=self.cor['fundo']
+                bgcolor=self.cor['fundo'],
             )
         )
 
@@ -88,7 +88,7 @@ class AppToDo:
             self.criar_cabecalho(),
             self.criar_secao_entrada(),
             self.criar_abas(),
-            self.criar_lista_tarefas(),
+            self.criar_lista_tarefas()
         )
 
     def criar_cabecalho(self):
@@ -110,7 +110,7 @@ class AppToDo:
             focused_border_color=self.cor['primaria'],
             text_style=ft.TextStyle(color=self.cor['texto']),
             hint_style=ft.TextStyle(color=self.cor['texto_secundario']),
-            bgcolor=self.cor['item-fundo'],
+            bgcolor=self.cor['item_fundo'],
             border_radius=8, 
         )
 
@@ -140,7 +140,7 @@ class AppToDo:
             tabs=[
                 ft.Tab(text="Todas", icon=ft.icons.LIST),
                 ft.Tab(text="Pendentes", icon=ft.icons.PENDING_ACTIONS),
-                ft.Tab(text="Concluídas", icon=ft.icons.TASK_ALT),
+                ft.Tab(text="Concluídas", icon=ft.icons.TASK_ALT)
             ],
             on_change=self.atualizar_lista_tarefas
         )
@@ -163,7 +163,7 @@ class AppToDo:
         query = 'SELECT * FROM "tasks"'
         if self.abas.selected_index == 1:
             query += ' WHERE "status" = "incomplete"'
-        elif self.abas.selected_index == e:
+        elif self.abas.selected_index == 2:
             query += ' WHERE "status" = "complete"'
 
         tarefas = self.banco_dados.searchItens(query)
@@ -196,11 +196,11 @@ class AppToDo:
     def adicionar_tarefa(self, e):
         # Adiciona uma nova tarefa ao banco de dados e atualiza a lista 
         if self.entrada_tarefa.value:
-            self.banco_dados.addTasks(self.entrada_tarefa.value, 'icomplete')
+            self.banco_dados.addTasks(self.entrada_tarefa.value, 'incomplete')
             self.entrada_tarefa.value = ''
             self.atualizar_lista_tarefas()
     
-    def alternar_staus_tarefa(self, e, tarefa):
+    def alternar_status_tarefa(self, e, tarefa):
         # Alterna o status de uma tarefa entre completa e incompleta 
         novo_status = 'complete' if e.control.value else 'incomplete'
         self.banco_dados.updateTasks(novo_status, tarefa)
